@@ -1,3 +1,4 @@
+import Nabar from "@/components/Navbar";
 import React from "react"
 
 
@@ -11,7 +12,7 @@ function layout({ children }: Props) {
         <>
             <div className="">
 
-                <h1>Navbar</h1>
+                <Nabar />
                 <div className="container flex-1 mx-auto p-10 ">
                     {children}
                 </div>

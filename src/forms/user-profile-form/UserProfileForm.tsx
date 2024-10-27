@@ -22,7 +22,7 @@ export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
     currentUser: User;
-    onSave: (userProfileData: UserFormData) => void;
+    onSave: (userProfileData: any) => void;
     isLoading: boolean;
     title?: string;
     buttonText?: string;
@@ -44,28 +44,40 @@ const UserProfileForm = ({
         form.reset(currentUser);
     }, [currentUser, form]);
 
-    const [profileImage, setProfileImage] = useState<string | null>(null);
+    const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [Image, setImage] = useState<string | null>(null);
+
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0];
         if (file) {
+            setProfileImage(file);
             const imageUrlData = URL.createObjectURL(file);
-            setProfileImage(imageUrlData);
+            setImage(imageUrlData)
         }
     };
-
     const handleAvatarClick = () => {
         fileInputRef.current?.click();
     };
 
-    const handleSubmit = async (data: UserFormData) => {
-        // Pass the imageUrl to the onSave function
-        onSave({
-            ...data,
-            imageUrl: profileImage || currentUser.imageUrl, // Use current user's image if no new image
-        });
+    const handleSubmit = async (data: any) => {
+        const formData = new FormData();
+        formData.append('username', data.username);
+        formData.append('addressLine1', data.addressLine1);
+        formData.append('city', data.city);
+        formData.append('country', data.country);
+        formData.append('phoneNumber', data.phoneNumber);
+
+        // Append the image file if a new one has been selected.
+        if (profileImage) {
+            formData.append('imageFile', profileImage); // Ensure this matches the multer field name
+        }
+
+        // Pass the FormData to the onSave function
+        await onSave(formData);
     };
+
 
     return (
         <Form {...form}>
@@ -82,7 +94,7 @@ const UserProfileForm = ({
                 <div className="flex flex-col items-center">
                     <div className="relative">
                         <img
-                            src={profileImage || currentUser.imageUrl} // Show new image or existing image
+                            src={Image ? Image : currentUser.imageUrl} // Show new image or existing image
                             alt="Profile Avatar"
                             className="w-32 h-32 rounded-full object-cover border-4 border-gray-300 shadow-lg cursor-pointer"
                             onClick={handleAvatarClick}

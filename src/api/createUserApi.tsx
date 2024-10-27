@@ -57,7 +57,7 @@ type UpdateMyUserRequest = {
 export const useUpdateMyUser = () => {
     const { getAccessTokenSilently } = useAuth0();
 
-    const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
+    const updateMyUserRequest = async (formData: FormData) => {
         try {
             const accessToken = await getAccessTokenSilently();
 
@@ -65,9 +65,9 @@ export const useUpdateMyUser = () => {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json',
+                    // Do not set 'Content-Type' here. FormData sets it automatically.
                 },
-                body: JSON.stringify(formData),
+                body: formData, // Pass the FormData directly
             });
 
             if (!response.ok) {
@@ -102,6 +102,7 @@ export const useUpdateMyUser = () => {
         error,
     };
 };
+
 
 
 

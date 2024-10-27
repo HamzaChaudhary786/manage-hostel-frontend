@@ -1,10 +1,16 @@
 import SearchBar from '@/components/SearchBar'
 import LandingImage from '../assets/tourist.jpg'
+import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
 
-    const handleSearchForm = (searchQuery: any) => {
+    const navigate = useNavigate()
+
+    const handleSearchForm = (searchFormValues: any) => {
         // Add your search logic here
+        navigate({
+            pathname: `/search/${searchFormValues.searchQuery}`
+        })
     }
 
     return (

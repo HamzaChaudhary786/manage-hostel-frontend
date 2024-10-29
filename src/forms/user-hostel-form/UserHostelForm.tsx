@@ -8,7 +8,7 @@ import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 
 type Props = {
-    onSave: (hostelFormData: FormData) => void;
+    onSave: (hostelFormData: any) => void;
     isLoading: boolean;
 };
 
@@ -41,6 +41,7 @@ const UserHostelForm = ({ onSave, isLoading }: Props) => {
     });
 
     // Handle form submission
+    // Assuming onSave can now accept the adjustedData object directly
     const handleSubmit = async (formJsonData: UserFormData) => {
         // Adjusting formJsonData to match the required format
         const adjustedData = {
@@ -51,18 +52,18 @@ const UserHostelForm = ({ onSave, isLoading }: Props) => {
             country: formJsonData.country,
             email: formJsonData.email,
             rooms: formJsonData.rooms.map(room => ({
-                type: room.type.charAt(0).toUpperCase() + room.type.slice(1), // Capitalizing room type
-                bedCount: room.bedCount, // Converting bedCount to a number
-                pricePerNight: room.pricePerNight, // Converting pricePerNight to a number
-                availability: "available", // Assuming availability is always available
+                type: room.type.charAt(0).toUpperCase() + room.type.slice(1),
+                bedCount: room.bedCount,
+                pricePerNight: room.pricePerNight,
+                availability: "available",
                 images: room.images,
                 amenities: room.amenities
             }))
         };
 
-        console.log("Form submitted", adjustedData); // Log adjusted form data before processing
-        await onSave(adjustedData); // Send the adjusted data to the backend
+        onSave(adjustedData); // Directly pass adjusted data to the backend
     };
+
 
 
 

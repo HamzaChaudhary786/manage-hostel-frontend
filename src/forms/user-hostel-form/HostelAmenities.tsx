@@ -25,9 +25,13 @@ const HostelAmenities = ({ index, removeMenuItem }: Props) => {
             field.onChange(uploadedUrls); // Update form field with URLs
         } else {
             setImageUrls([]); // Reset URLs if no files are selected
-            field.onChange(null); // Reset form field
+            field.onChange(null);
+            if (imageUrls) {
+                return null;
+            } // Reset form field
         }
     };
+
 
     const uploadImagesToCloudinary = async (files: File[]) => {
         const urls: string[] = []; // Specify type as string[]

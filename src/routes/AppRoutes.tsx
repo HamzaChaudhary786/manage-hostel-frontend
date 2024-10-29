@@ -5,6 +5,7 @@ import AboutPage from '@/pages/AboutPage'
 import AuthCallbackPage from '@/pages/AuthCallbackPage'
 import ProtectedRoute from '@/auth/ProtectedRoute'
 import UserProfile from '@/pages/UserProfilePage'
+import UserHostelPage from '@/pages/UserHostelPage'
 const AppRoutes = () => {
     return (
         <Routes>
@@ -14,6 +15,8 @@ const AppRoutes = () => {
 
             <Route element={<ProtectedRoute />}>
                 <Route path='/user-profile' element={<Layout ><UserProfile /></Layout>} />
+                <Route path='/manage-hostel' element={<Layout ><UserHostelPage /></Layout>} />
+
             </Route>
             <Route path='*' element={<><h1>Not Page Found</h1></>} />
         </Routes>

@@ -45,15 +45,6 @@ export const useCreateMyUser = () => {
 };
 
 
-
-type UpdateMyUserRequest = {
-    username: string;
-    addressLine1: string;
-    city: string;
-    country: string;
-    imageUrl: string;
-};
-
 export const useUpdateMyUser = () => {
     const { getAccessTokenSilently } = useAuth0();
 

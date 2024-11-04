@@ -1,12 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { BrowserRouter as Router } from 'react-router-dom'
-import AppRoutes from './routes/AppRoutes.tsx'
-import Auth0ProviderWithNavigate from './auth/Auth0ProviderWithNavigate.tsx'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { Toaster } from './components/ui/sonner.tsx'
-
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes.tsx';
+import Auth0ProviderWithNavigate from './auth/Auth0ProviderWithNavigate.tsx';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from './components/ui/sonner.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,9 +13,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
-
-
-})
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -27,7 +24,6 @@ createRoot(document.getElementById('root')!).render(
           <Toaster visibleToasts={1} position='top-right' />
         </Auth0ProviderWithNavigate>
       </QueryClientProvider>
-
     </Router>
-  </StrictMode>,
-)
+  </StrictMode>
+);

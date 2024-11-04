@@ -8,6 +8,7 @@ const HomePage = () => {
 
     const handleSearchForm = (searchFormValues: any) => {
         // Add your search logic here
+
         navigate({
             pathname: `/search/${searchFormValues.searchQuery}`
         })

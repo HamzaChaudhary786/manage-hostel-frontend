@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 type Props = {};
 
-const RestaurantInfo = ({}: Props) => {
+const RestaurantInfo = ({ }: Props) => {
     const { control } = useFormContext();
 
     return (
@@ -15,8 +15,10 @@ const RestaurantInfo = ({}: Props) => {
                     Enter the details about your hostel, including name, email, location, and contact information.
                 </FormDescription>
             </div>
-
+         
             <div className="flex flex-col md:flex-row gap-6 w-full">
+
+
                 <FormField control={control} name="name" render={({ field }) => (
                     <FormItem className="flex-1">
                         <FormLabel>Hostel Name</FormLabel>

@@ -6,10 +6,13 @@ import RestaurantInfo from "./RestaurantInfo";
 import AmenitiesSection from "../user-hostel-form/AmenitiesSection";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import ImageSection from "./ImageSection";
 
 type Props = {
     onSave: (hostelFormData: any) => void;
     isLoading: boolean;
+    hostel: any
 };
 
 // Room schema definition
@@ -30,31 +33,35 @@ const formSchema = z.object({
     country: z.string().min(1, "Country is required"),
     email: z.string().optional(),
     rooms: z.array(roomSchema), // Array of room schemas
-});
+    imageUrl: z.string().optional(),
+})
 
 // Type for the form data based on the schema
 export type UserFormData = z.infer<typeof formSchema>;
 
-const UserHostelForm = ({ onSave, isLoading }: Props) => {
+const UserHostelForm = ({ onSave, isLoading, hostel }: Props) => {
     const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
     });
 
     // Handle form submission
     // Assuming onSave can now accept the adjustedData object directly
-    const handleSubmit = async (formJsonData: UserFormData) => {
+    const onSubmit = async (formJsonData: UserFormData) => {
         // Adjusting formJsonData to match the required format
+
+
         const adjustedData = {
             name: formJsonData.name,
             contactNumber: formJsonData.contactNumber,
             address: formJsonData.address,
+            imageUrl: formJsonData.imageUrl,
             city: formJsonData.city,
             country: formJsonData.country,
             email: formJsonData.email,
             rooms: formJsonData.rooms.map(room => ({
                 type: room.type.charAt(0).toUpperCase() + room.type.slice(1),
-                bedCount: room.bedCount,
-                pricePerNight: room.pricePerNight,
+                bedCount: room.bedCount as string,
+                pricePerNight: room.pricePerNight as string,
                 availability: "available",
                 images: room.images,
                 amenities: room.amenities
@@ -66,21 +73,32 @@ const UserHostelForm = ({ onSave, isLoading }: Props) => {
 
 
 
+    useEffect(() => {
+        if (hostel) {
+            form.reset(hostel);
+        }
+    }, [form, hostel])
+
+
+
 
 
     return (
         <Form {...form}>
             <form
-                onSubmit={form.handleSubmit(handleSubmit)}
+                onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-4 bg-gray-50 rounded-lg md:p-10"
             >
                 <RestaurantInfo />
+
+                <ImageSection />
+
                 <AmenitiesSection />
 
                 {isLoading ? (
                     <LoadingButton />
                 ) : (
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" className="w-full">Submit</Button>
                 )}
             </form>
         </Form>

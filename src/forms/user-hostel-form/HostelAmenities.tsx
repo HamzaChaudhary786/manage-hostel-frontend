@@ -4,8 +4,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useFormContext } from "react-hook-form";
-import axios from 'axios';
-import { useState } from "react";
+
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import useCloudinaryUploader from "@/commonComponents/CloudinaryCustomHook";
 
 type Props = {
     index: number;
@@ -13,49 +14,16 @@ type Props = {
 }
 
 const HostelAmenities = ({ index, removeMenuItem }: Props) => {
-    const { control } = useFormContext();
-    const [imageUrls, setImageUrls] = useState<string[]>([]); // Specify type as string[]
+    const { control, watch } = useFormContext();
+    const existingUrl = watch("rooms")
 
-    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>, field: any) => {
-        const files = e.target.files ? Array.from(e.target.files) : [];
-
-        if (files.length > 0) {
-            const uploadedUrls = await uploadImagesToCloudinary(files);
-            setImageUrls(uploadedUrls); // Store the URLs
-            field.onChange(uploadedUrls); // Update form field with URLs
-        } else {
-            setImageUrls([]); // Reset URLs if no files are selected
-            field.onChange(null);
-            if (imageUrls) {
-                return null;
-            } // Reset form field
-        }
-    };
-
-
-    const uploadImagesToCloudinary = async (files: File[]) => {
-        const urls: string[] = []; // Specify type as string[]
-        const cloudName = 'dtqmhztoy'; // Replace with your Cloudinary cloud name
-        const uploadPreset = 'MernEats'; // Replace with your upload preset
-
-        for (const file of files) {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', uploadPreset);
-
-            try {
-                const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, formData);
-                urls.push(response.data.secure_url); // Collect the URLs
-            } catch (error) {
-                console.error('Upload failed:', error);
-            }
-        }
-
-        return urls; // Return all uploaded URLs
-    };
+    const { handleMultipleFileChange } = useCloudinaryUploader();
+  
 
     return (
         <div className="flex flex-col gap-6">
+
+          
             <FormField control={control} name={`rooms.${index}.type`} render={({ field }) => (
                 <FormItem>
                     <FormLabel className="flex items-center gap-1">Type <FormMessage /></FormLabel>
@@ -87,10 +55,10 @@ const HostelAmenities = ({ index, removeMenuItem }: Props) => {
                 <FormItem>
                     <div className="grid md:grid-cols-5 justify-items-start items-start gap-1">
                         {amenitiesList.map((cuisine) => (
-                            <FormItem key={cuisine} className="flex flex-row mt-2 space-x-1 items-center">
+                            <FormItem key={cuisine} className="flex flex-row mt-2 space-x-2 items-center">
                                 <FormControl>
                                     <Checkbox
-                                        className="bg-white"
+                                        className="bg-white mt-[10px]"
                                         checked={(field.value || []).includes(cuisine)} // Prevents accessing undefined
                                         onCheckedChange={(checked) => {
                                             if (checked) {
@@ -108,6 +76,28 @@ const HostelAmenities = ({ index, removeMenuItem }: Props) => {
                 </FormItem>
             )} />
 
+            <div>
+                {existingUrl && existingUrl[index]?.images?.length > 0 ? (
+                    <div className="room-images space-x-4 space-y-4">
+
+                        <div className="image-gallery grid grid-cols-3 gap-6">
+                            {existingUrl[index].images.map((imageUrl: string, imageIndex: number) => (
+                                <AspectRatio key={imageIndex} ratio={16 / 9}>
+                                    <img
+                                        src={imageUrl}
+                                        className="rounded-md h-full w-full object-cover"
+                                        alt={`Room ${index + 1} - Image ${imageIndex + 1}`}
+                                    />
+                                </AspectRatio>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <p>No images available for this room</p>
+                )}
+            </div>
+
+
             <FormField control={control} name={`rooms.${index}.images`} render={({ field }) => (
                 <FormItem>
                     <FormControl>
@@ -116,7 +106,7 @@ const HostelAmenities = ({ index, removeMenuItem }: Props) => {
                             type="file"
                             multiple
                             accept=".jpg, .jpeg, .png"
-                            onChange={(e) => handleFileChange(e, field)}
+                            onChange={(e) => handleMultipleFileChange(e, field)}
                         />
                     </FormControl>
                     <FormMessage />

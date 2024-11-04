@@ -12,7 +12,7 @@ const MenuSection = () => {
     });
 
     return (
-        <div className="space-y-2">
+        <div className="space-y-5">
             <div>
                 <h1 className="text-2xl font-bold">Rooms</h1>
                 <FormDescription>Create your own amenities</FormDescription>
@@ -34,8 +34,8 @@ const MenuSection = () => {
                 )}
             />
 
-            <Button type="button" onClick={() => append({ name: "", price: "" })}>
-                Add Menu Item
+            <Button type="button" className="bg-green-500 w-full" onClick={() => append({ name: "", price: "" })}>
+                Add Rooms
             </Button>
         </div>
     );

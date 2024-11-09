@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from 'react-datepicker';
 import { Button } from "./ui/button";
 import { FaCalendarAlt } from 'react-icons/fa';
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { useCreateCheckoutSession } from "@/api/bookingApi";
 import LoadingButton from "./LoadingButton";
 
@@ -65,15 +65,17 @@ const BookingInfo = ({ ID, setID, room, hostel }: Props) => {
         <>
             <Dialog >
                 <DialogTrigger onClick={() => setID(room?._id)} className="w-full">
-                    <Button className="w-full">Booking</Button>
+                    <div>
+                        <Button className="w-full">Booking</Button>
+                    </div>
                 </DialogTrigger>
                 <DialogContent>
 
+                    <DialogTitle>Booking Details</DialogTitle>
+
                     <form action="" onSubmit={handleBooking} className="space-y-4">
 
-                        <h1>
-                            Booking Details for {room?.type}
-                        </h1>
+
                         <div className="date-range-selector">
 
                             <div>

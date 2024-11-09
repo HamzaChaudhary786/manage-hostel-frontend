@@ -75,7 +75,7 @@ const UserHostelForm = ({ onSave, isLoading, hostel }: Props) => {
 
     useEffect(() => {
         if (hostel) {
-            form.reset(hostel);
+            form.reset(hostel.data);
         }
     }, [form, hostel])
 

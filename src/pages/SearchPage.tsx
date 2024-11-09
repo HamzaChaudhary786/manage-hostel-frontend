@@ -58,7 +58,7 @@ const SearchPage = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-10">
             <div id="cuisines-list">
                 <AmenitiesFilter
                     onChange={setSelectedAmenities}

@@ -1,6 +1,99 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.text-stroke {
+  -webkit-text-stroke: 0.5px red;
+  /* Apply a red stroke with 2px thickness */
+  color: white;
+  /* Make the fill color transparent so only the stroke shows */
+}
+
+
+.date-range-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Add spacing between date pickers */
+}
+
+.date-picker {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-picker-input {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.calendar-icon {
+  position: absolute;
+  left: 10px;
+  color: black;
+  /* Adjust color as needed */
+}
+
+.input-field {
+  padding-left: 30px;
+  /* Add padding to avoid overlapping with the icon */
+  border: 1px solid #ccc;
+  /* Basic border styling */
+  border-radius: 4px;
+  /* Rounded corners */
+  height: 36px;
+  /* Match height with icon */
+  width: 100%;
+  /* Full width */
+  box-sizing: border-box;
+  /* Include padding and border in element's total width and height */
+  outline: none;
+  /* Remove default outline on focus */
+}
+
+.input-field:focus {
+  border-color: #007bff;
+  /* Change border color on focus */
+}
+
+
+
+
+.alert-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffecb3;
+  /* Light yellow background for visibility */
+  padding: 10px 0;
+}
+
+/* Alert message styling and animation */
+.alert-message {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d32f2f;
+  /* Red text for prominence */
+  white-space: nowrap;
+  animation: moveText 15s linear infinite;
+
+}
+
+/* Keyframes for left-to-right animation */
+@keyframes moveText {
+  0% {
+    transform: translateX(-140%);
+  }
+
+  100% {
+    transform: translateX(170%);
+  }
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -29,6 +122,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem
   }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -56,10 +150,12 @@
     --chart-5: 340 75% 55%
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

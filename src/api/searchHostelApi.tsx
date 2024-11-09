@@ -28,3 +28,32 @@ export const useSearchRestaurant = (searchState: any, city?: string) => {
         results,
     };
 };
+
+
+
+
+export const useGetSingleHostel = (hostelId?: string) => {
+
+
+    const singleHostelRequest = async (): Promise<any> => {
+        const response = await fetch(`${API_BASE_URL}/api/hostel/${hostelId}`, {
+            method: 'GET',
+            
+          
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to get a restaurant');
+        }
+
+        return response.json();
+    };
+
+    const { data: hostel, isLoading } = useQuery("fetchHostelById", singleHostelRequest, { enabled: !!hostelId })
+
+    return {
+        isLoading,
+        hostel,
+    };
+};

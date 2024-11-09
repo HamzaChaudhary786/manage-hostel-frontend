@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import MainNav from './MainNav'
+import MobileNav from './MobileNav'
 
 const Navbar = () => {
     return (
         <>
-            <div className="border-b-2 border-b-orange-500 p-10">
+            <div className="border-b-2 border-b-orange-500 px-10 py-6">
                 <div className="container mx-auto flex justify-between items-center">
                     <Link
                         to="/"
@@ -13,7 +14,7 @@ const Navbar = () => {
                         MernHostel.com
                     </Link>
                     <div className="md:hidden">
-                        {/* <MobileNav /> */}
+                        <MobileNav />
                     </div>
                     <div className="hidden md:block">
                         <MainNav />

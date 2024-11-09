@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Nabar from "@/components/Navbar";
 import React from "react"
 
@@ -16,7 +17,7 @@ function layout({ children }: Props) {
                 <div className="container flex-1 min-h-screen mx-auto p-10 ">
                     {children}
                 </div>
-                <h2>Footer</h2>
+                <Footer />
 
 
             </div>

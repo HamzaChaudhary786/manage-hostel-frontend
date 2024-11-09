@@ -5,7 +5,7 @@ type Props = {
 }
 const SearchResultInfo = ({ total, city }: Props) => {
     return (
-        <div>{city} {total}</div>
+        <div> City: {city} total hostels: {total}</div>
     )
 }
 

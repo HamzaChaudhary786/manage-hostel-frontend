@@ -12,8 +12,8 @@ const MainNav = () => {
             {
                 isAuthenticated ? (
                     <>
-                        <Link to="order-status" className=' font-bold hover:text-orange-500 cursor-pointer'>
-                            Hostel Status
+                        <Link to="/booking-status" className=' font-bold hover:text-orange-500 cursor-pointer'>
+                            Booking Status
                         </Link>
                         <UsernameMenu />
                     </>

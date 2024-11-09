@@ -8,6 +8,7 @@ import UserProfile from '@/pages/UserProfilePage';
 import UserHostelPage from '@/pages/UserHostelPage';
 import SearchPage from '@/pages/SearchPage';
 import DetailPage from '@/pages/DetailPage';
+import BookingStatus from '@/pages/BookingStatus';
 
 const AppRoutes = () => {
   return (
@@ -20,9 +21,11 @@ const AppRoutes = () => {
 
       <Route element={<ProtectedRoute />}>
         <Route path='/user-profile' element={<Layout><UserProfile /></Layout>} />
+        <Route path='/booking-status' element={<Layout><BookingStatus /></Layout>} />
+
         <Route path='/manage-hostel' element={<Layout><UserHostelPage /></Layout>} />
       </Route>
-      
+
       <Route path='*' element={<><h1>Page Not Found</h1></>} />
     </Routes>
   );

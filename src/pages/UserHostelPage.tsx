@@ -3,7 +3,6 @@ import { useCreateMyHostel, useGetMyHostel, useUpdateMyHostel } from "../api/cre
 import UserHostelForm from "@/forms/user-hostel-form/UserHostelForm";
 import BookingItemCard from "@/components/BookingItemCard";
 import { useGetMyHostelBookings } from "@/api/bookingApi";
-import { isError } from "react-query";
 
 const UserHostelPage = () => {
     const { createHostel, isLoading: isCreateLoading } = useCreateMyHostel();

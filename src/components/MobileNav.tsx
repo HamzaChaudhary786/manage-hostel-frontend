@@ -1,4 +1,4 @@
-import { CircleUserRound, Menu, SeparatorHorizontalIcon } from "lucide-react";
+import { CircleUserRound, Menu, } from "lucide-react";
 import {
     Sheet,
     SheetContent,

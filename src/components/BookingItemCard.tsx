@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 import { Separator } from "./ui/separator";
-import { isError } from "react-query";
 
 
 
@@ -28,7 +26,6 @@ const BookingItemCard = ({ booking, isLoading, isError }: Props) => {
 
 
 
-    const [status, setStatus] = useState<any>(booking.status)
 
 
     return (

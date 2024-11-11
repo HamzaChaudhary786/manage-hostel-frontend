@@ -5,7 +5,7 @@ import MobileNav from './MobileNav'
 const Navbar = () => {
     return (
         <>
-            <div className="border-b-2 border-b-orange-500 px-10 py-6">
+            <div className="border-b-2 border-b-orange-500 px-4 lg:px-10 py-6">
                 <div className="container mx-auto flex justify-between items-center">
                     <Link
                         to="/"

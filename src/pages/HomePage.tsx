@@ -19,7 +19,7 @@ const HomePage = () => {
             <div className="flex flex-col gap-12 w-full">
 
                 <div className="grid  lg:grid-cols-1 gap-5 w-full relative items-center justify-items-center">
-                    <div className='w-[calc(100%+5rem)] -m-6'>
+                    <div className='w-[calc(100%+2.5rem)] -ml-4 lg:w-[calc(100%+5rem)] lg:-m-6'>
                         <img src={LandingImage} className='w-full h-[90vh] object-cover ' />
                     </div>
                     <div className="flex flex-col items-center justify-center gap-4 text-center absolute">

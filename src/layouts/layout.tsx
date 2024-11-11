@@ -14,7 +14,7 @@ function layout({ children }: Props) {
             <div className="">
 
                 <Nabar />
-                <div className="container flex-1 min-h-screen mx-auto p-10 ">
+                <div className="container flex-1 min-h-screen mx-auto p-4 lg:p-10 ">
                     {children}
                 </div>
                 <Footer />

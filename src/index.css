@@ -84,11 +84,11 @@
 
 /* Keyframes for left-to-right animation */
 @keyframes moveText {
-  0% {
-    transform: translateX(-140%);
+  100% {
+    transform: translateX(-120%);
   }
 
-  100% {
+  0% {
     transform: translateX(170%);
   }
 }

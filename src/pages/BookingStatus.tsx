@@ -1,5 +1,5 @@
 import { useGetMyBooking } from "@/api/bookingApi"
-import BookingCard from "@/components/BookingCard";
+import BookingTable from "@/components/BookingCard";
 
 const BookingStatus = () => {
     const { booking, isLoading, isError } = useGetMyBooking()
@@ -23,13 +23,10 @@ const BookingStatus = () => {
                     </h1>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {
-                        booking.map((book: any) => {
-                            return <BookingCard key={book._id} book={book} />
-                        })
-                    }
+                <div className="overflow-x-auto">
+                    <BookingTable bookings={booking} />
                 </div>
+
             </div>
         </>
     )

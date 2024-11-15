@@ -9,6 +9,7 @@ import UserHostelPage from '@/pages/UserHostelPage';
 import SearchPage from '@/pages/SearchPage';
 import DetailPage from '@/pages/DetailPage';
 import BookingStatus from '@/pages/BookingStatus';
+import Dashboard from '@/pages/Dashboard';
 
 const AppRoutes = () => {
   return (
@@ -22,6 +23,8 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute />}>
         <Route path='/user-profile' element={<Layout><UserProfile /></Layout>} />
         <Route path='/booking-status' element={<Layout><BookingStatus /></Layout>} />
+        <Route path='/dashboard' element={<Layout><Dashboard/></Layout>} />
+
 
         <Route path='/manage-hostel' element={<Layout><UserHostelPage /></Layout>} />
       </Route>

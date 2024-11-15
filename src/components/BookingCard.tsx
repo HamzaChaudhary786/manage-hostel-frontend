@@ -1,120 +1,97 @@
-import React, { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import React from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Dot } from "lucide-react";
 import { Button } from "./ui/button";
 import { useUpdateCheckoutSession } from "@/api/bookingApi";
 import LoadingButton from "./LoadingButton";
-
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"; // Assuming you're using ShadCN UI
 
 type Props = {
-    book: any
-}
-const BookingCard = ({ book }: Props) => {
+    bookings: any[]; // Array of bookings
+};
 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-    const { updateCheckoutSession, isLoading } = useUpdateCheckoutSession()
-
-    const nextImage = () => {
-        setCurrentImageIndex((prevIndex) =>
-            (prevIndex + 1) % book.room.images.length
-        );
-    };
-
-    const prevImage = () => {
-        setCurrentImageIndex((prevIndex) =>
-            (prevIndex - 1 + book.room.images.length) % book.room.images.length
-        );
-    };
-
-
-
-
-
+const BookingTable = ({ bookings }: Props) => {
+    const { updateCheckoutSession, isLoading } = useUpdateCheckoutSession();
 
     const handleBooking = async (bookingId: string) => {
-
-        const data = await updateCheckoutSession(bookingId)
-
+        const data = await updateCheckoutSession(bookingId);
         window.location.href = data.url;
+    };
 
-
-    }
-
-
-    console.log(book, "Booking data updated");
-
+    console.log(bookings, "update");
 
 
     return (
-        <>
+        <Table className="min-w-full">
+            <TableHeader>
+                <TableRow>
+                    <TableHead>Room Type</TableHead>
+                    <TableHead>Image</TableHead>
+                    <TableHead>Amenities</TableHead>
+                    <TableHead>Booking Date</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Price Per Night</TableHead>
+                    <TableHead>Actions</TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                {bookings.map((book) => (
+                    <TableRow key={book._id}>
+                        <TableCell>{book.room.type}</TableCell>
 
+                        {/* Image Display */}
+                        <TableCell>
+                            <img
+                                src={book.room.images[0]} // Displaying the first image only
+                                alt={`Room image`}
+                                className="w-24 h-12 object-cover"
+                            />
+                        </TableCell>
 
-            <Card key={book._id} className="space-x-0 space-y-0">
-                <CardHeader title={book.room.type} />
+                        {/* Amenities */}
+                        <TableCell>
+                            <div className="flex flex-wrap items-center space-x-2">
+                                {book.room.amenities.map((amenity: string, amenityIndex: number) => (
+                                    <React.Fragment key={amenityIndex}>
+                                        <span>{amenity}</span>
+                                        {amenityIndex < book.room.amenities.length - 1 && <Dot />}
+                                    </React.Fragment>
+                                ))}
+                            </div>
+                        </TableCell>
+                        <TableCell>
+                            <div>
+                                {new Date(book.checkInDate).toLocaleDateString("en-US")} to {new Date(book.checkOutDate).toLocaleDateString("en-US")}
+                            </div>
 
+                        </TableCell>
 
+                        {/* Status */}
+                        <TableCell>{book.status}</TableCell>
 
-                <CardContent className="space-y-2">
+                        {/* Price Per Night */}
+                        <TableCell>{book.room.pricePerNight}$</TableCell>
 
-
-                    {/* Image display with navigation buttons */}
-                    <div className="relative">
-                        <img
-                            src={book.room.images[currentImageIndex]}
-                            alt={`book image ${currentImageIndex + 1}`}
-                            className="w-full h-48 object-cover"
-                        />
-                        <div className="absolute top-1/2 left-2 transform -translate-y-1/2">
-                            <button onClick={prevImage} className="p-2 bg-white rounded-l-lg shadow-md">
-                                <FaChevronLeft />
-                            </button>
-                        </div>
-                        <div className="absolute top-1/2 right-2 transform -translate-y-1/2">
-                            <button onClick={nextImage} className="p-2 bg-white rounded-r-lg shadow-md">
-                                <FaChevronRight />
-                            </button>
-                        </div>
-                    </div>
-                    <CardTitle>{book.room.type}</CardTitle>
-
-                    <div className="flex flex-row items-center skew-x-2 space-x-2">
-                        {book.room.amenities.map((amenity: any, amenityIndex: any) => (
-                            <React.Fragment key={amenityIndex}>
-                                <CardTitle>{amenity}</CardTitle>
-                                {amenityIndex < book.room.amenities.length - 1 && <Dot />}
-                            </React.Fragment>
-                        ))}
-                    </div>
-                    <div>
-                        status: {book.status}
-                    </div>
-                    <CardDescription>Price Per Night: {book.room.pricePerNight}$</CardDescription>
-
-                    <div>
-                        {
-                            book.status === "pending" && (
+                        {/* Actions */}
+                        <TableCell className="flex space-x-2 items-center justify-center ">
+                            {book.status === "pending" && (
                                 <Button className="w-full" onClick={() => handleBooking(book.bookingId)}>
-                                    {isLoading ? (<><LoadingButton /></>) : (<><span> Booking</span></>)}
+                                    {isLoading ? <LoadingButton /> : <span>Booking</span>}
                                 </Button>
+                            )}
+                            <button className="p-2 bg-blue-500 rounded text-white hover:bg-blue-700">
+                                <FaEdit />
+                            </button>
+                            <button className="p-2 bg-red-500 rounded text-white hover:bg-red-700">
+                                <FaTrash />
+                            </button>
+                        </TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    );
+};
 
-                            )
+export default BookingTable;
 
-                        }
-                    </div>
-
-
-
-
-                </CardContent>
-
-
-            </Card >
-
-
-        </>
-    )
-}
-
-export default BookingCard

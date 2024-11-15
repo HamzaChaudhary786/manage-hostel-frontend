@@ -16,14 +16,12 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
     <Router>
       <QueryClientProvider client={queryClient}>
         <Auth0ProviderWithNavigate>
           <AppRoutes />
-          <Toaster visibleToasts={1} position='top-right' />
+          <Toaster visibleToasts={1} position="top-right" />
         </Auth0ProviderWithNavigate>
       </QueryClientProvider>
     </Router>
-  </StrictMode>
 );

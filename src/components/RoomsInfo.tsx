@@ -14,12 +14,12 @@ import BookingInfo from "./BookingInfo";
 
 
 
+
 type Props = {
     hostel: any;
 
 }
 const RoomsInfo = ({ hostel }: Props) => {
-
     const [ID, setID] = useState<string>();
 
 
@@ -29,6 +29,7 @@ const RoomsInfo = ({ hostel }: Props) => {
     return (
         <>
             <h1 className="mt-16 text-3xl font-bold" >Rooms </h1>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 justify-around gap-8 mt-16">
                 {hostel.rooms.map((room: any) => {
                     // State to manage the current image index

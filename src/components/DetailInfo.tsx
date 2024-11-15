@@ -1,9 +1,33 @@
+import { useEffect } from "react"
 import RoomsInfo from "./RoomsInfo"
+import { useViewTrackUser } from "@/api/viewTrackUser"
 
 type Props = {
     hostel: any
 }
 const DetailInfo = ({ hostel }: Props) => {
+
+    const { trackViewUser, isLoading } = useViewTrackUser()
+
+    useEffect(() => {
+
+        const ViewUser = async () => {
+
+            let viewData = {
+                hostelId: hostel._id
+            }
+
+            trackViewUser(viewData);
+
+
+        }
+
+
+        ViewUser()
+
+    }, [])
+
+    if (isLoading) return <p>Loading...</p>
     return (
         <>
             <div className="relative ">
